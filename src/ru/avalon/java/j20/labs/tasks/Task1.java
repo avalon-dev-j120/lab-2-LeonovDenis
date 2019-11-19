@@ -1,12 +1,9 @@
 package ru.avalon.java.j20.labs.tasks;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import ru.avalon.java.j20.labs.Task;
-
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
