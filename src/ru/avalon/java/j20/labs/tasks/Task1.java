@@ -1,15 +1,17 @@
 package ru.avalon.java.j20.labs.tasks;
 
+import java.io.ByteArrayOutputStream;
 import ru.avalon.java.j20.labs.Task;
-
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
  * Задание №1
  *
- * <p>Тема: "Потоковый ввод-вывод. Чтение и запись данных
- * в двоичном режиме".
+ * <p>
+ * Тема: "Потоковый ввод-вывод. Чтение и запись данных в двоичном режиме".
  */
 public class Task1 implements Task {
 
@@ -46,26 +48,46 @@ public class Task1 implements Task {
     /**
      * Выполняет чтение указанного файла в двоичном режиме.
      *
-     * <p>Весь текст файла возвращается в виде одного
-     * экземпляра типа {@link String}.
+     * <p>
+     * Весь текст файла возвращается в виде одного экземпляра типа
+     * {@link String}.
      *
      * @param file файл
      * @return содержимое файла в виде текста.
      * @throws IOException в случае ошибок ввода-вывода.
      */
     private String read(File file) throws IOException {
-        throw new UnsupportedOperationException("Not implement yet!");
+        /**
+         * Использование вспомогательного массива потока вывода. В закрытии
+         * потока не нуждается
+         */
+        ByteArrayOutputStream bao = new ByteArrayOutputStream();
+
+        try (FileInputStream fis = new FileInputStream(file)) {
+
+            while (fis.available() > 0) {
+                int data = fis.read();
+                bao.write(data);
+            }
+        }
+
+        return bao.toString();
     }
 
     /**
-     * Выполняет запись текстоых данных в файл в двоичном
-     * режиме.
+     * Выполняет запись текстоых данных в файл в двоичном режиме.
      *
      * @param file файл
      * @param text текст
      * @throws IOException в случае ошибок ввода-вывода.
      */
     private void write(File file, String text) throws IOException {
-        throw new UnsupportedOperationException("Not implemented yet!");
+
+        try (FileOutputStream fos = new FileOutputStream(file);) {
+            byte[] stroka = text.getBytes();
+
+            fos.write(stroka);
+        }
+
     }
 }

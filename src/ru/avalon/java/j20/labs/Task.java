@@ -11,5 +11,5 @@ public interface Task {
      * @throws Exception в случае возникновения в процессе
      * выполнения задания исключительной ситуации.
      */
-    void run() throws Exception;
+    void run() throws Exception ;
 }

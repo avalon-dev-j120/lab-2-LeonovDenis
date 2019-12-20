@@ -3,13 +3,15 @@ package ru.avalon.java.j20.labs.tasks;
 import ru.avalon.java.j20.labs.Task;
 
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 /**
  * Задание №2
  *
- * <p>Тема: "Потоковый ввод-вывод. Чтение и запись данных
- * в текстовом режиме".
+ * <p>
+ * Тема: "Потоковый ввод-вывод. Чтение и запись данных в текстовом режиме".
  */
 public class Task2 implements Task {
 
@@ -46,26 +48,39 @@ public class Task2 implements Task {
     /**
      * Выполняет чтение указанного файла в текстовом режиме.
      *
-     * <p>Весь текст файла возвращается в виде одного
-     * экземпляра типа {@link String}.
+     * <p>
+     * Весь текст файла возвращается в виде одного экземпляра типа
+     * {@link String}.
      *
      * @param file файл
      * @return содержимое файла в виде текста.
      * @throws IOException в случае ошибок ввода-вывода.
      */
     private String read(File file) throws IOException {
-        throw new UnsupportedOperationException("Not implement yet!");
+        StringBuilder sb = new StringBuilder();
+        try (FileReader fr = new FileReader(file)) {
+            while (fr.ready()) {
+
+                sb = sb.append((char) fr.read());
+            }
+        }
+
+        return sb.toString();
     }
 
     /**
-     * Выполняет запись текстоых данных в файл в текстовом
-     * режиме.
+     * Выполняет запись текстоых данных в файл в текстовом режиме.
      *
      * @param file файл
      * @param text текст
      * @throws IOException в случае ошибок ввода-вывода.
      */
     private void write(File file, String text) throws IOException {
-        throw new UnsupportedOperationException("Not implemented yet!");
+
+        try (FileWriter fw = new FileWriter(file)) {
+
+            fw.write(text);
+
+        }
     }
 }

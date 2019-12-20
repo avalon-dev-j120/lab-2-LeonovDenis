@@ -3,13 +3,15 @@ package ru.avalon.java.j20.labs.tasks;
 import ru.avalon.java.j20.labs.Task;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 /**
  * Задание №5
  *
- * <p>Тема: "Потоковый ввод-вывод. Чтение локализованных ресурсов".
+ * <p>
+ * Тема: "Потоковый ввод-вывод. Чтение локализованных ресурсов".
  */
 public class Task5 implements Task {
 
@@ -18,6 +20,27 @@ public class Task5 implements Task {
      */
     @Override
     public void run() throws IOException {
+
+        String path = "resources/strings/titles";
+        Locale locale = new Locale("en");
+
+        ResourceBundle def_bundle = read(path);
+
+        ResourceBundle en_bundle = read(path, locale);
+
+        /**
+         * Блок проверки правильности работы задания
+         */
+        System.out.println("Проверка значения ключа\"menu.edit\""
+                + "в локализации по умолчанию: ");
+
+        getKey(def_bundle, "menu.edit");
+
+        System.out.println("Проверка значения ключа\"menu.edit\""
+                + "в локализации языка EN: ");
+
+        getKey(en_bundle, "menu.edit");
+
         /*
          * TODO(Студент): Выполнить задание №5
          *
@@ -34,14 +57,16 @@ public class Task5 implements Task {
     }
 
     /**
-     * Выполняет чтение локализованных ресурсов с использованием
-     * локализации по умолчанию.
+     * Выполняет чтение локализованных ресурсов с использованием локализации по
+     * умолчанию.
      *
      * @param path путь к файлу ресурсов
      * @return новый экземпляр типа {@link ResourceBundle}
      */
     private ResourceBundle read(String path) {
-        throw new UnsupportedOperationException("Not implement yet!");
+
+        return ResourceBundle.getBundle(path);
+
     }
 
     /**
@@ -51,6 +76,25 @@ public class Task5 implements Task {
      * @return новый экземпляр типа {@link ResourceBundle}
      */
     private ResourceBundle read(String path, Locale locale) {
-        throw new UnsupportedOperationException("Not implement yet!");
+        return ResourceBundle.getBundle(path, locale);
+    }
+
+    /**
+     * Проверка ключа свойств локализации
+     *
+     * @param r_bundle свойства локализации
+     * @param Key ключ параметра
+     */
+    private void getKey(ResourceBundle bundle, String Key) {
+
+        String st = bundle.getString(Key);
+        String s = "";
+        try {
+            s = new String(st.getBytes("ISO-8859-1"), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            System.err.println("Problems with code");
+        }
+
+        System.out.println(s);
     }
 }
